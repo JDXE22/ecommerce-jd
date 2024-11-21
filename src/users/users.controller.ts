@@ -44,7 +44,7 @@ export class UsersController {
   @HttpCode(HttpStatus.I_AM_A_TEAPOT)
   @Get('coffee')
   getCoffee() {
-    return 'No se hacer cafe, soy una tetera';
+    return 'I dont know how to make coffee, I am a teapot';
   }
 
   @Get('message')
