@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "src/users/entities/user.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import {v4 as uuid} from "uuid"
 
 
@@ -7,8 +8,8 @@ export class Orders {
     @PrimaryGeneratedColumn("uuid")
     id: string = uuid()
 
-    @Column()
-    userId: string // Relacion 1:N
+    @ManyToOne(()=> User, (user)=> user.orders)
+    user: User // Relacion 1:N
 
     @Column()
     date: Date
