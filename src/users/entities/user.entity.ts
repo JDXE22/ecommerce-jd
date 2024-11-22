@@ -20,7 +20,7 @@ export class User {
     @Column({length: 50})
     city: string
     @Column()
-    orders_id: string
+    orders_id: string // Relacion 1:N con orders
     @Column()
     createdAt: string
 }
