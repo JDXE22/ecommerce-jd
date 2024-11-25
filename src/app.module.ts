@@ -8,12 +8,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { OrdersModule } from './orders/orders.module';
 import dbConfig from './config/dbConfig';
+import { OrderDetailsModule } from './orderDetails/order-details.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [dbConfig]
+      load: [dbConfig],
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
@@ -23,6 +25,8 @@ import dbConfig from './config/dbConfig';
     UsersModule,
     AuthModule,
     OrdersModule,
+    OrderDetailsModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

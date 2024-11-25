@@ -1,5 +1,6 @@
-import { User } from "src/users/entities/user.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { OrderDetails } from "@entities/orderDetails/entities/orderDetails.entity";
+import { User } from "@entities/users/entities/user.entity";
+import { Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import {v4 as uuid} from "uuid"
 
 
@@ -8,12 +9,12 @@ export class Orders {
     @PrimaryGeneratedColumn("uuid")
     id: string = uuid()
 
-    @ManyToOne(()=> User, (user)=> user.orders)
-    user: User // Relacion 1:N
+    @ManyToOne(()=> User, (users)=> users.orders)
+    users: User // Relacion 1:N
 
     @Column()
     date: Date
 
-    @Column()
-    orderDetails: string // Relacion 1:1 con orderDetails
+    @OneToOne(()=> OrderDetails, orderDetails => orderDetails.orders)
+    orderDetails: OrderDetails // Relacion 1:1 con orderDetails
 }

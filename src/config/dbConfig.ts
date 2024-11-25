@@ -10,12 +10,16 @@ const config: DataSourceOptions = {
   host: process.env.DB_HOST,
   port: process.env.DB_PORT as unknown as number,
   username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,  
-  synchronize: true,
-  dropSchema: true,
-  entities: ['dist/**/*.entity{.ts, .js}'],
+  password: process.env.DB_PASSWORD, 
+  dropSchema: false,
+  synchronize: false,
+  cache: false,
+  logging: true,
+  entities: ['dist/**/*.entity.{js, ts}'],
   migrations: ['dist/migrations/*{.js, .ts}']
 };
 export default registerAs('typeormDB', ()=> config)
+
+
 
 export const connectionSource = new DataSource( config as DataSourceOptions)

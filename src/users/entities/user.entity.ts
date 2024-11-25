@@ -1,5 +1,4 @@
-import { Order } from "nestjs-paginate/lib/helper"
-import { Orders } from "src/orders/entities/orders.entity"
+import { Orders } from "@entities/orders/entities/orders.entity"
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import {v4 as uuid} from "uuid"
 
@@ -21,7 +20,7 @@ export class User {
     address:string
     @Column({length: 50})
     city: string
-    @OneToMany(()=> Orders, (orders)=> orders.user)
+    @OneToMany(()=> Orders, (orders)=> orders.users)
     orders: Orders[] // Relacion 1:N con orders
     @Column()
     createdAt: string

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Products } from "@entities/products/entities/product.entity";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import {v4 as uuid} from "uuid"
 
 
@@ -11,7 +12,7 @@ export class Categories {
     @Column()
     name: string
 
-    @Column()
+    @OneToMany(()=> Products, (product)=> product.categories)
     products: string // Relacion N:1 con product
 
 }
