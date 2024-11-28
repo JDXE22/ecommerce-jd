@@ -46,7 +46,7 @@ export class UsersService {
     return userFound;
   }
 
-  async create(user: CreateUsersDTO) {
+  async create(user: Omit<User, 'id' | 'orders'>) {
     const date = new Date()
     user.createdAt = date
     const newUser = this.usersRepository.save(user);
@@ -58,7 +58,7 @@ export class UsersService {
     return { id };
   }
 
-  async updateUser(id: string, user) {
+  async updateUser(id: string,user: Omit<User, 'id'| 'orders'>) {
     return this.usersRepository.update(id, user);
   }
 }

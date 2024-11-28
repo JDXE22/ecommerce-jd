@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  ParseUUIDPipe,
   Post,
   Put,
   Req,
@@ -16,6 +17,7 @@ import { UsersService } from './users.service';
 import { Response } from 'express';
 import { Authorization } from 'src/guards/auth.guard';
 import { User } from './entities/user.entity';
+import { CreateUsersDTO } from './dto/createUsers.dto';
 
 @Controller('users')
 export class UsersController {
@@ -58,16 +60,9 @@ export class UsersController {
     console.log(request);
   }
 
-  @Get(':id')
-  @UseGuards(Authorization)
-  @HttpCode(HttpStatus.OK)
-  getUserById(@Param('id') id: string) {
-    return this.usersService.getUserById((id));
-  }
-
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  createUser(@Body() userDTO) {
+  createUser(@Body() userDTO: CreateUsersDTO) {
     return this.usersService.create(userDTO)
   }
 
@@ -83,5 +78,12 @@ export class UsersController {
   @HttpCode(HttpStatus.OK)
   deleteUser(@Param('id') id: string) {
     return this.usersService.deleteUser(id)
+  }
+
+  @Get(':id')
+  @UseGuards(Authorization)
+  @HttpCode(HttpStatus.OK)
+  getUserById(@Param('id', ParseUUIDPipe) id: string) {
+    return this.usersService.getUserById((id));
   }
 }
