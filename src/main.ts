@@ -3,13 +3,22 @@ import { AppModule } from './app.module';
 import { loggerGlobal } from './middlewares/logger.middleware';
 import { SeedCategoriesService } from './seed/seed.service';
 import { ProductsSeed } from './seed/products/productsSeed.service';
-import { ValidationPipe } from '@nestjs/common';
+import { BadRequestException, ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use( loggerGlobal)
   app.useGlobalPipes(new ValidationPipe({
     whitelist:true,
+    exceptionFactory(errors) {
+      const cleanErrors = errors.map((error)=> {
+        return {property: error.property, constraints: error.constraints}
+      })
+      return new BadRequestException({
+        alert: 'We have detected the following errors in your request and we are sending you this message',
+        errors: cleanErrors
+      })
+    },
   }))
   const SeedCategories = app.get(SeedCategoriesService)
   await SeedCategories.seed();

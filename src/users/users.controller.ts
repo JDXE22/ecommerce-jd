@@ -69,14 +69,14 @@ export class UsersController {
   @Put(':id')
   @UseGuards(Authorization)
   @HttpCode(HttpStatus.OK)
-  updateUser(@Param('id') id:string, @Body()user ) {
+  updateUser(@Param('id', ParseUUIDPipe) id:string, @Body()user ) {
     return this.usersService.updateUser(id, user)
   }
 
   @Delete(':id')
   @UseGuards(Authorization)
   @HttpCode(HttpStatus.OK)
-  deleteUser(@Param('id') id: string) {
+  deleteUser(@Param('id', ParseUUIDPipe) id: string) {
     return this.usersService.deleteUser(id)
   }
 

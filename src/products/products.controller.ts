@@ -7,6 +7,7 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  ParseUUIDPipe,
   Post,
   Put,
   Query,
@@ -43,20 +44,20 @@ export class ProductsController {
   @Put(':id')
   @UseGuards(Authorization)
   @HttpCode(HttpStatus.OK)
-  updateProduct(@Param('id') id: string, @Body()product: Products) {
+  updateProduct(@Param('id', ParseUUIDPipe) id: string, @Body()product: Products) {
     return this.productsService.updateProduct(id, product);
   }
 
   @Delete(':id')
   @UseGuards(Authorization)
   @HttpCode(HttpStatus.OK)
-  deleteProduct(@Param('id') id: string) {
+  deleteProduct(@Param('id', ParseUUIDPipe) id: string) {
     return this.productsService.deleteProduct((id));
   }
 
   @Get(':id')
   @HttpCode(HttpStatus.OK)
-  getProductById(@Param('id') id: string) {
+  getProductById(@Param('id',ParseUUIDPipe) id: string) {
     return this.productsService.getById((id));
   }
 
