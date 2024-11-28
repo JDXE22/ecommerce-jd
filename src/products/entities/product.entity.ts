@@ -20,7 +20,7 @@ export class Products {
   @Column()
   imgUrl: string;
   @ManyToOne(()=> Categories, (category)=> category.products)
-  categories: Categories; // Relacion 1:N
+  category: Categories; // Relacion 1:N
   @ManyToMany(()=> OrderDetails, (orderDetails) => orderDetails.products)
   @JoinTable()
   orderDetails: OrderDetails[]; // Relacion N:N

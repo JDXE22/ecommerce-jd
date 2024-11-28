@@ -17,4 +17,5 @@ export class Orders {
 
     @OneToOne(()=> OrderDetails, orderDetails => orderDetails.orders)
     orderDetails: OrderDetails // Relacion 1:1 con orderDetails
+
 }

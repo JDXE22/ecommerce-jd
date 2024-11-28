@@ -15,6 +15,7 @@ import {
 import { UsersService } from './users.service';
 import { Response } from 'express';
 import { Authorization } from 'src/guards/auth.guard';
+import { User } from './entities/user.entity';
 
 @Controller('users')
 export class UsersController {
@@ -61,7 +62,7 @@ export class UsersController {
   @UseGuards(Authorization)
   @HttpCode(HttpStatus.OK)
   getUserById(@Param('id') id: string) {
-    return this.usersService.getUserById(Number(id));
+    return this.usersService.getUserById((id));
   }
 
   @Post()
@@ -73,14 +74,14 @@ export class UsersController {
   @Put(':id')
   @UseGuards(Authorization)
   @HttpCode(HttpStatus.OK)
-  updateUser(id: number) {
-    return this.usersService.updateUser(id)
+  updateUser(@Param('id') id:string, @Body()user ) {
+    return this.usersService.updateUser(id, user)
   }
 
   @Delete(':id')
   @UseGuards(Authorization)
   @HttpCode(HttpStatus.OK)
-  deleteUser(id: number) {
+  deleteUser(@Param('id') id: string) {
     return this.usersService.deleteUser(id)
   }
 }

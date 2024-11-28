@@ -10,6 +10,7 @@ import { OrdersModule } from './orders/orders.module';
 import dbConfig from './config/dbConfig';
 import { OrderDetailsModule } from './orderDetails/order-details.module';
 import { CategoriesModule } from './categories/categories.module';
+import { SeedModule } from './seed/seed.module';
 
 @Module({
   imports: [
@@ -21,12 +22,13 @@ import { CategoriesModule } from './categories/categories.module';
       inject: [ConfigService],
       useFactory:(configService: ConfigService) => configService.get('typeormDB')
     }),
-    ProductsModule,
     UsersModule,
+    ProductsModule,
     AuthModule,
     OrdersModule,
     OrderDetailsModule,
     CategoriesModule,
+    SeedModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -12,7 +12,7 @@ export class Categories {
     @Column()
     name: string
 
-    @OneToMany(()=> Products, (product)=> product.categories)
-    products: string // Relacion N:1 con product
+    @OneToMany(()=> Products, (product)=> product.category)
+    products: Products[] // Relacion N:1 con product
 
 }

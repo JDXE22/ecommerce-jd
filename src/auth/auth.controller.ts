@@ -11,8 +11,8 @@ export class AuthController {
         return `This returns all the products`
     }
 
-    @Post('signin')
-    signin(@Body() loginDTO: LoginDTO){
-        return this.authService.signIn(loginDTO)
-    }
+    // @Post('signin')
+    // signin(@Body() loginDTO: LoginDTO){
+    //     return this.authService.signIn(loginDTO)
+    // }
 }

@@ -12,10 +12,12 @@ export class User {
     name: string
     @Column({length: 50})
     email: string
-    @Column({length: 20})
+    @Column({length: 20, nullable: false} )
     password: string
     @Column({length: 50})
     country: string
+    @Column()
+    phone: string
     @Column({length: 50})
     address:string
     @Column({length: 50})
@@ -23,5 +25,5 @@ export class User {
     @OneToMany(()=> Orders, (orders)=> orders.users)
     orders: Orders[] // Relacion 1:N con orders
     @Column()
-    createdAt: string
+    createdAt: Date
 }

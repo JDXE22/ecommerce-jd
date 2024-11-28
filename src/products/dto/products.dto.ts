@@ -1,5 +1,6 @@
+
+
 export class ProductDTO {
-  id?: number;
 
   name: string;
 
@@ -7,7 +8,11 @@ export class ProductDTO {
 
   price: number;
 
-  stock: boolean;
+  stock: number;
 
   imgUrl: string;
+
+  category
+
+  orderDetails
 }

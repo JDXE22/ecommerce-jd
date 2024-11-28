@@ -3,7 +3,7 @@ import { Products } from "@entities/products/entities/product.entity";
 import { Column, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import {v4 as uuid} from "uuid"
 
-@Entity({name: "orderdetails"})
+@Entity({name: "orderDetails"})
 export class OrderDetails {
     @PrimaryGeneratedColumn("uuid")
     id: string = uuid()

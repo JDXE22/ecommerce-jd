@@ -1,29 +1,64 @@
 import { Injectable } from '@nestjs/common';
-import { UsersRepository } from './usersRepository';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from './entities/user.entity';
+import { Repository } from 'typeorm';
+import { CreateUsersDTO } from './dto/createUsers.dto';
 
 @Injectable()
 export class UsersService {
+  constructor(
+    @InjectRepository(User) private readonly usersRepository: Repository<User>,
+  ) {}
 
-    constructor(private readonly usersRepository: UsersRepository){}
+  async getAllUsers() {
+    return (await this.usersRepository.find()).map(
+      ({ password, ...userWithoutPassword }) => userWithoutPassword,
+    );
+  }
 
-    async getAllUsers(){
-        return this.usersRepository.getUsers()
+  async getUserById(id: string): Promise<
+    | (Omit<User, 'password' | 'orders'> & {
+        orders: { id: string; date: Date }[];
+      })
+    | null
+  > {
+    const user = await this.usersRepository.findOne({
+      where: { id },
+      relations: ['orders'],
+    });
+    if (!user) {
+      throw new Error(`No users`);
     }
+    const { password, orders, ...userWithoutPassword } = user;
 
-    async getUserById(id: number){
-        return this.usersRepository.getById(id)
-    }
+    const filteredOrders = orders.map((order) => ({
+      id: order.id,
+      date: order.date,
+    }));
 
-    async create(user){
-        return this.usersRepository.create(user)
-    }
+    console.log('🚀 ~ UsersService ~ getUserById ~ userFound:', user);
+    return { ...userWithoutPassword, orders: filteredOrders };
+  }
 
+  async findOneUserBy(id: string) {
+    const userFound = await this.usersRepository.findOne({ where: { id } });
+    console.log(userFound);
+    return userFound;
+  }
 
-    deleteUser(id:number){
-        return this.usersRepository.deleteUser(id)
-    }
+  async create(user: CreateUsersDTO) {
+    const date = new Date()
+    user.createdAt = date
+    const newUser = this.usersRepository.save(user);
+    return newUser;
+  }
 
-    updateUser(id:number){
-        return this.usersRepository.updateUser(id)
-    }
+  async deleteUser(id: string) {
+    this.usersRepository.delete(id);
+    return { id };
+  }
+
+  async updateUser(id: string, user) {
+    return this.usersRepository.update(id, user);
+  }
 }

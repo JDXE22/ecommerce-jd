@@ -14,7 +14,7 @@ const config: DataSourceOptions = {
   dropSchema: false,
   synchronize: false,
   cache: false,
-  logging: true,
+  logging: false,
   entities: ['dist/**/*.entity.{js, ts}'],
   migrations: ['dist/migrations/*{.js, .ts}']
 };
