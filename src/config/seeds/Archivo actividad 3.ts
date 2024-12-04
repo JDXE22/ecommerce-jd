@@ -1,4 +1,6 @@
-export const mockProducts = [
+
+
+export const mockProducts= [
   {
       "name": "Iphone 15",
       "description": "The best smartphone in the world",

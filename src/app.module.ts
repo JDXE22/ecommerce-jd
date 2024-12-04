@@ -11,6 +11,9 @@ import dbConfig from './config/dbConfig';
 import { OrderDetailsModule } from './orderDetails/order-details.module';
 import { CategoriesModule } from './categories/categories.module';
 import { SeedModule } from './seed/seed.module';
+import { FilesModule } from './files/files.module';
+import { CloudinaryService } from './shared/cloudinary/cloudinary.service';
+import { FilesService } from './files/files.service';
 
 @Module({
   imports: [
@@ -29,8 +32,9 @@ import { SeedModule } from './seed/seed.module';
     OrderDetailsModule,
     CategoriesModule,
     SeedModule,
+    FilesModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, CloudinaryService],
 })
 export class AppModule {}

@@ -17,7 +17,7 @@ export class Products {
   price: number;
   @Column()
   stock: number;
-  @Column()
+  @Column({nullable: true})
   imgUrl: string;
   @ManyToOne(()=> Categories, (category)=> category.products)
   category: Categories; // Relacion 1:N
