@@ -47,12 +47,17 @@ export class UsersService {
     return userFound;
   }
 
-  async create(user: Omit<User, 'id' | 'orders'>) {
-    const date = new Date();
-    user.createdAt = date;
-    const newUser = this.usersRepository.save(user);
-    return newUser;
+  async save(user: Omit<User, 'id' | 'orders'>){
+    user.createdAt = new Date()
+    return await this.usersRepository.save(user)
   }
+
+  // async create(user: Omit<User, 'id' | 'orders'>) {
+  //   const date = new Date();
+  //   user.createdAt = date;
+  //   const newUser = this.usersRepository.save(user);
+  //   return newUser;
+  // }
 
   async deleteUser(id: string) {
     this.usersRepository.delete(id);

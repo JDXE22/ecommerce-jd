@@ -60,11 +60,11 @@ export class UsersController {
     console.log(request);
   }
 
-  @Post()
-  @HttpCode(HttpStatus.CREATED)
-  createUser(@Body() userDTO: CreateUsersDTO) {
-    return this.usersService.create(userDTO)
-  }
+  // @Post()
+  // @HttpCode(HttpStatus.CREATED)
+  // createUser(@Body() userDTO: CreateUsersDTO) {
+  //   return this.usersService.create(userDTO)
+  // }
 
   @Put(':id')
   @UseGuards(Authorization)

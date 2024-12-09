@@ -13,7 +13,8 @@ import { CategoriesModule } from './categories/categories.module';
 import { SeedModule } from './seed/seed.module';
 import { FilesModule } from './files/files.module';
 import { CloudinaryService } from './shared/cloudinary/cloudinary.service';
-import { FilesService } from './files/files.service';
+import { JwtModule } from '@nestjs/jwt';
+
 
 @Module({
   imports: [
@@ -25,6 +26,12 @@ import { FilesService } from './files/files.service';
       inject: [ConfigService],
       useFactory:(configService: ConfigService) => configService.get('typeormDB')
     }),
+    JwtModule.register({
+      global: true,
+      secret: process.env.JWT_SECRET,
+      signOptions: {expiresIn: '1h'}
+    })
+    ,
     UsersModule,
     ProductsModule,
     AuthModule,
