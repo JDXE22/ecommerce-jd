@@ -4,6 +4,7 @@ import { LoginUserDto } from './dto/loginUser.dto';
 import { User } from '@entities/users/entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { Rol } from './roles/roles.enum';
 
 @Injectable()
 export class AuthService {
@@ -28,9 +29,11 @@ export class AuthService {
       sub: dbUser.id,
       id: dbUser.id,
       email: dbUser.email,
+      roles: [dbUser.isAdmin ? Rol.admin : Rol.user],
     };
 
     const token = this.jwtService.sign(userPayload);
+    console.log("🚀 ~ AuthService ~ signIn ~ userPayload:", userPayload)
     return { success: 'User logged in successfully', token };
   }
 

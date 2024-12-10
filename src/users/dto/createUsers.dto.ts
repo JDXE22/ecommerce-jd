@@ -47,5 +47,7 @@ export class CreateUsersDTO {
   city: string;
   @IsOptional()
   @IsDate()
-  createdAt: Date;
+  createdAt: Date
+  @IsOptional()
+  isAdmin: boolean;
 }

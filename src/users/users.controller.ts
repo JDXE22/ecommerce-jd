@@ -16,6 +16,7 @@ import {
 import { UsersService } from './users.service';
 import { Response } from 'express';
 import { Authorization } from 'src/guards/auth.guard';
+import { RolesGuard } from '@entities/guards/roles.guard';
 
 
 @Controller('users')
@@ -23,7 +24,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  @UseGuards(Authorization)
+  @UseGuards(Authorization && RolesGuard)
   @HttpCode(HttpStatus.OK)
   getAllUsers() {
     return this.usersService.getAllUsers();

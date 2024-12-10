@@ -26,4 +26,6 @@ export class User {
     orders: Orders[] // Relacion 1:N con orders
     @Column({nullable:true})
     createdAt: Date
+    @Column({ default: false })
+    isAdmin: boolean;
 }

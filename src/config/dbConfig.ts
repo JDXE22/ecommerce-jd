@@ -12,7 +12,7 @@ const config: DataSourceOptions = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD, 
   dropSchema: false,
-  synchronize: false,
+  synchronize: true,
   cache: false,
   logging: false,
   entities: ['dist/**/*.entity.{js, ts}'],

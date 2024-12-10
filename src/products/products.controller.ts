@@ -17,6 +17,7 @@ import { ProductsService } from './products.service';
 import { ProductDTO } from './dto/products.dto';
 import { Authorization } from 'src/guards/auth.guard';
 import { Products } from './entities/product.entity';
+import { RolesGuard } from '@entities/guards/roles.guard';
 
 @Controller('products')
 export class ProductsController {
@@ -42,7 +43,7 @@ export class ProductsController {
   }
 
   @Put(':id')
-  @UseGuards(Authorization)
+  @UseGuards(Authorization && RolesGuard)
   @HttpCode(HttpStatus.OK)
   updateProduct(@Param('id', ParseUUIDPipe) id: string, @Body()product: Products) {
     return this.productsService.updateProduct(id, product);

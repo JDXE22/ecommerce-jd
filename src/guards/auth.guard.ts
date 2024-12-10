@@ -1,3 +1,5 @@
+import { Roles } from '@entities/auth/decorators/roles.decorator';
+import { Rol } from '@entities/auth/roles/roles.enum';
 import {
   CanActivate,
   ExecutionContext,
@@ -24,7 +26,7 @@ export class Authorization implements CanActivate {
       const payload = this.jwtService.verify(token, { secret });
       payload.iat = new Date(payload.iat * 1000);
       payload.exp = new Date(payload.exp * 1000);
-      payload.roles = ['admin'];
+      payload.roles = [Rol.admin];
       request.user = payload;
       return true;
     } catch (err) {
