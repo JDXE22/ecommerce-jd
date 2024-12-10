@@ -24,7 +24,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  @UseGuards(Authorization && RolesGuard)
+  @UseGuards(Authorization, RolesGuard)
   @HttpCode(HttpStatus.OK)
   getAllUsers() {
     return this.usersService.getAllUsers();

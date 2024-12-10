@@ -33,7 +33,6 @@ export class AuthService {
     };
 
     const token = this.jwtService.sign(userPayload);
-    console.log("🚀 ~ AuthService ~ signIn ~ userPayload:", userPayload)
     return { success: 'User logged in successfully', token };
   }
 

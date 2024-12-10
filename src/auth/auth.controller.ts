@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Post,
+  Req,
   UseGuards,
   UseInterceptors,
   UsePipes,
@@ -14,6 +15,8 @@ import { CreateUsersDTO } from '@entities/users/dto/createUsers.dto';
 import { RolesGuard } from '@entities/guards/roles.guard';
 import { Roles } from './decorators/roles.decorator';
 import { Rol } from './roles/roles.enum';
+import { Request } from 'express';
+import { Authorization } from '@entities/guards/auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -29,10 +32,5 @@ export class AuthController {
     return this.authService.signUp(user);
   }
 
-  @UseGuards(RolesGuard)
-  @Roles(Rol.admin)
-  @Get('admin')
-  getAdmin(): string {
-    return 'Protected Admin Route';
-  }
+  
 }
