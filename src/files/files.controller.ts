@@ -3,12 +3,14 @@ import {
   Param,
   Post,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
   UsePipes,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FilesService } from './files.service';
 import { SizeValidator } from '@entities/pipes/sizeValidator.pipe';
+import { Authorization } from '@entities/guards/auth.guard';
 
 @Controller('files')
 export class FilesController {
@@ -17,6 +19,7 @@ export class FilesController {
   ) {}
   @Post('/uploadImage/:id')
   @UseInterceptors(FileInterceptor('image'))
+  @UseGuards(Authorization)
   uploadImage(
     @Param('id') id: string,
     @UploadedFile(SizeValidator) file: Express.Multer.File,

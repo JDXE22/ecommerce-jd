@@ -16,8 +16,7 @@ import {
 import { UsersService } from './users.service';
 import { Response } from 'express';
 import { Authorization } from 'src/guards/auth.guard';
-import { User } from './entities/user.entity';
-import { CreateUsersDTO } from './dto/createUsers.dto';
+
 
 @Controller('users')
 export class UsersController {
@@ -59,12 +58,6 @@ export class UsersController {
   getRequest(@Req() request: Request) {
     console.log(request);
   }
-
-  // @Post()
-  // @HttpCode(HttpStatus.CREATED)
-  // createUser(@Body() userDTO: CreateUsersDTO) {
-  //   return this.usersService.create(userDTO)
-  // }
 
   @Put(':id')
   @UseGuards(Authorization)
