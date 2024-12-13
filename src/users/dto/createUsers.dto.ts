@@ -1,3 +1,4 @@
+import { PartialType } from '@nestjs/swagger';
 import {
   IsDate,
   IsEmail,
@@ -8,6 +9,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { User } from '../entities/user.entity';
 
 export class CreateUsersDTO {
   @IsNotEmpty()
@@ -50,4 +52,32 @@ export class CreateUsersDTO {
   createdAt: Date
   @IsOptional()
   isAdmin: boolean;
+}
+
+export class UsersDto extends PartialType(CreateUsersDTO){
+
+  email: string;
+
+  name: string;
+
+  password: string;
+
+  address: string;
+
+  phone: string;
+
+  country: string;
+
+  city: string;
+
+  createdAt: Date
+
+  isAdmin: boolean;
+
+
+
+
+
+
+
 }

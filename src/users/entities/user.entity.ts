@@ -1,4 +1,4 @@
-import { Orders } from "@entities/orders/entities/orders.entity"
+import { Orders } from "../../orders/entities/orders.entity"
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import {v4 as uuid} from "uuid"
 

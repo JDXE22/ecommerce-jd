@@ -1,10 +1,10 @@
-import { UsersService } from '@entities/users/users.service';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { LoginUserDto } from './dto/loginUser.dto';
-import { User } from '@entities/users/entities/user.entity';
+import { User } from '../users/entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { Rol } from './roles/roles.enum';
+import { UsersService } from '@entities/users/users.service';
 
 @Injectable()
 export class AuthService {
