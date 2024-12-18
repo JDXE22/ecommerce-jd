@@ -18,7 +18,9 @@ import { ProductDTO } from './dto/products.dto';
 import { Authorization } from 'src/guards/auth.guard';
 import { Products } from './entities/product.entity';
 import { RolesGuard } from '@entities/guards/roles.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Products')
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService, ) {}

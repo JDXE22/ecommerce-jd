@@ -11,7 +11,9 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { FilesService } from './files.service';
 import { SizeValidator } from '@entities/pipes/sizeValidator.pipe';
 import { Authorization } from '@entities/guards/auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Files')
 @Controller('files')
 export class FilesController {
   constructor(

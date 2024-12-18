@@ -6,6 +6,7 @@ import { ProductsSeed } from './seed/products/productsSeed.service';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { auth } from 'express-openid-connect';
 import { config as authConfig } from './config/auth0.config';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -26,6 +27,16 @@ async function bootstrap() {
       },
     }),
   );
+
+  const swaggerConfig = new DocumentBuilder()
+                            .setTitle('Demo Nest')
+                            .setDescription('API created with Nest to be used in back end module\'s 4 demo')
+                            .setVersion('1.0')
+                            .build()
+
+  const document = SwaggerModule.createDocument(app, swaggerConfig)
+  SwaggerModule.setup('api', app, document)
+
   const SeedCategories = app.get(SeedCategoriesService);
   await SeedCategories.seed();
   console.log(`La insercion de categories ha terminado`);

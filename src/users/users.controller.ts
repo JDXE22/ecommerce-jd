@@ -15,10 +15,11 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Response } from 'express';
-import { Authorization } from 'src/guards/auth.guard';
-import { RolesGuard } from '@entities/guards/roles.guard';
+import { RolesGuard } from '../guards/roles.guard';
+import { Authorization } from '../guards/auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
-
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}

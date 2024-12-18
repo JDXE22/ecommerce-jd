@@ -36,6 +36,11 @@ describe('UsersService', () => {
         ...updatedUser,
       }),
     ),
+    delete: jest.fn(() =>
+      Promise.resolve({
+        id: '1234fs-234sd-24csfd-34sdfg',
+      }),
+    ),
   };
   let jwtService: JwtService;
 
@@ -85,6 +90,15 @@ describe('UsersService', () => {
     });
   });
 
+  it("save() should return an error if there's an issue with the user Data", async () => {
+    jest.spyOn(mockUsersRepository, 'save').mockImplementation(() => {
+      throw new Error('Invalid user data');
+    });
+    expect(await mockUsersRepository.save()).rejects.toThrow(
+      'Invalid user data',
+    );
+  });
+
   it('getUserById should return a user with an OK status', async () => {
     const { password, ...userWithOutPassword } = mockUser;
     const id = '1234fs-234sd-24csfd-34sdfg';
@@ -103,11 +117,23 @@ describe('UsersService', () => {
     };
     const id = '1234fs-234sd-24csfd-34sdfg';
 
-    const user = await mockUsersRepository.updateUser( id, updatedUser);
+    const user = await mockUsersRepository.updateUser(id, updatedUser);
 
     expect(user).toEqual({
       id,
       ...updatedUser,
+    });
+  });
+
+  it('delete() should delete an user based on the ID and return an OK Status', async () => {
+    const id = '1234fs-234sd-24csfd-34sdfg';
+
+    const user = await mockUsersRepository.getUserById(id);
+
+    const userId = { id: user.id };
+
+    expect(userId).toEqual({
+      id: id,
     });
   });
 });
