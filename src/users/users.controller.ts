@@ -18,6 +18,7 @@ import { Response } from 'express';
 import { RolesGuard } from '../guards/roles.guard';
 import { Authorization } from '../guards/auth.guard';
 import { ApiTags } from '@nestjs/swagger';
+import { UsersDto } from './dto/createUsers.dto';
 
 @ApiTags('Users')
 @Controller('users')
@@ -64,7 +65,7 @@ export class UsersController {
   @Put(':id')
   @UseGuards(Authorization)
   @HttpCode(HttpStatus.OK)
-  updateUser(@Param('id', ParseUUIDPipe) id:string, @Body()user ) {
+  updateUser(@Param('id', ParseUUIDPipe) id:string, @Body()user: UsersDto ) {
     return this.usersService.updateUser(id, user)
   }
 
