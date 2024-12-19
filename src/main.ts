@@ -32,6 +32,7 @@ async function bootstrap() {
                             .setTitle('Demo Nest')
                             .setDescription('API created with Nest to be used in back end module\'s 4 demo')
                             .setVersion('1.0')
+                            .addBearerAuth()
                             .build()
 
   const document = SwaggerModule.createDocument(app, swaggerConfig)

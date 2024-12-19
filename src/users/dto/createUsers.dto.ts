@@ -28,16 +28,19 @@ export class CreateUsersDTO {
     example: 'Chill',
   })
   name: string;
-  @Matches(/^[a-zA-Z0-9!@#$%^&*]{8,15}$/, {
-    message:
-      'Password must have lower case, uppercase, a number and special character',
-  })
-  @IsNotEmpty()
-  @IsString()
   @ApiProperty({
     description: 'Strong password is required',
-    example: 'Example!(Strong',
+    example: `aB!12cDe`,
   })
+  @Matches(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,15}$/,
+    {
+      message:
+        'Password must include 8-15 chars, uppercase, lowercase, number, and special character',
+    },
+  )
+  @IsNotEmpty()
+  @IsString()
   password: string;
   @MinLength(3)
   @MaxLength(80)
@@ -71,11 +74,10 @@ export class CreateUsersDTO {
   @IsString()
   @ApiProperty({
     description: 'City name must be at least 5 characters long',
-    example: 'Canada',
+    example: 'Vancouver',
   })
   city: string;
   @IsOptional()
-  @IsDate()
   @ApiProperty({
     description: 'The date when the user was created',
   })

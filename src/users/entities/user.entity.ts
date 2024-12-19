@@ -16,7 +16,7 @@ export class User {
     password: string
     @Column({length: 50})
     country: string
-    @Column({length:10})
+    @Column({length:25})
     phone: string
     @Column({length: 50})
     address:string

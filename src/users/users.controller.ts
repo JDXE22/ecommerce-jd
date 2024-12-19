@@ -17,14 +17,14 @@ import { UsersService } from './users.service';
 import { Response } from 'express';
 import { RolesGuard } from '../guards/roles.guard';
 import { Authorization } from '../guards/auth.guard';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UsersDto } from './dto/createUsers.dto';
 
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-
+  @ApiBearerAuth()
   @Get()
   @UseGuards(Authorization, RolesGuard)
   @HttpCode(HttpStatus.OK)

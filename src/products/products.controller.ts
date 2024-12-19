@@ -18,7 +18,7 @@ import { ProductDTO } from './dto/products.dto';
 import { Authorization } from 'src/guards/auth.guard';
 import { Products } from './entities/product.entity';
 import { RolesGuard } from '@entities/guards/roles.guard';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Products')
 @Controller('products')
@@ -43,9 +43,10 @@ export class ProductsController {
   createProduct(@Body() product: Products) {
     return this.productsService.create(product);
   }
-
+  
+  @ApiBearerAuth()
   @Put(':id')
-  @UseGuards(Authorization && RolesGuard)
+  @UseGuards(Authorization, RolesGuard)
   @HttpCode(HttpStatus.OK)
   updateProduct(@Param('id', ParseUUIDPipe) id: string, @Body()product: Products) {
     return this.productsService.updateProduct(id, product);
