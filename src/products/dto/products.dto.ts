@@ -9,7 +9,7 @@ export class ProductDTO {
   @MaxLength(50)
   @ApiProperty({
     description: 'Product name must be at least 5 characters long',
-    example: 'Canada'
+    example: 'GoPro-Camera'
   })
   name: string;
   @IsString()
@@ -30,7 +30,7 @@ export class ProductDTO {
   @IsNotEmpty()
   @ApiProperty({
     description: 'Stock must be a number and cannot be empty',
-    example:"stock: " + 25
+    example:25
 
   })
   stock: number;

@@ -25,7 +25,7 @@ export class CreateOrderDto {
   @Type(() => PartialProductDto)
   @ApiProperty({
     description: 'Must be a partial array of an instance of ProductDto',
-    example: `  [{
+    example: `[{
     name: "Apple iPhone 15",
     description: "The latest iPhone with advanced features and sleek design.",
     price: 999.99,

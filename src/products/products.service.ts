@@ -19,7 +19,7 @@ export class ProductsService {
     });
   }
 
-  async create(productDto: Products): Promise<ProductDTO> {
+  async create(productDto: ProductDTO): Promise<Products> {
     return this.productsRepository.save(productDto);
   }
 
@@ -32,7 +32,7 @@ export class ProductsService {
      return {id}
   }
 
-  async updateProduct(id: string, updatedProduct: Products) {
+  async updateProduct(id: string, updatedProduct: ProductDTO) {
     await this.productsRepository.update(id, updatedProduct);
     return this.productsRepository.findOneBy({ id });
   }

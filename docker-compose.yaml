@@ -1,0 +1,36 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '4000:3000'
+    environment:
+      DB_HOST: postgres
+      DB_NAME: m4projectdemo
+      DB_USER: postgres
+      DB_PASSWORD: admin
+    depends_on:
+      - postgres
+    networks:
+      - nestnetwork
+
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: m4projectdemo
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    networks:
+      - nestnetwork
+
+volumes:
+  pg-data:
+
+networks:
+  nestnetwork:

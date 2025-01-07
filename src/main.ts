@@ -36,7 +36,7 @@ async function bootstrap() {
                             .build()
 
   const document = SwaggerModule.createDocument(app, swaggerConfig)
-  SwaggerModule.setup('api', app, document)
+  SwaggerModule.setup('/', app, document);
 
   const SeedCategories = app.get(SeedCategoriesService);
   await SeedCategories.seed();
@@ -47,6 +47,6 @@ async function bootstrap() {
   }
   await productSeed.seed();
   console.log(`La insercion de productos ha terminado`);
-  await app.listen(3000);
+  await app.listen(3000, '0.0.0.0');
 }
 bootstrap();

@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   HttpCode,
+  HttpException,
   HttpStatus,
   Param,
   ParseUUIDPipe,
@@ -29,57 +30,91 @@ export class UsersController {
   @UseGuards(Authorization, RolesGuard)
   @HttpCode(HttpStatus.OK)
   getAllUsers() {
-    return this.usersService.getAllUsers();
+    try {
+      return this.usersService.getAllUsers();
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          error: 'Users not found',
+        },
+        HttpStatus.NOT_FOUND,
+      );
+    }
   }
 
-  @Get('profile')
-  @UseGuards(Authorization)
-  @HttpCode(HttpStatus.OK)
-  getUserProfile() {
-    return 'Este endpoint retorna el perfil del usuario';
-  }
-
-  @Get('profile/images')
-  @UseGuards(Authorization)
-  @HttpCode(HttpStatus.OK)
-  getUserImages() {
-    return 'Este endpoint retorna el perfil del usuario';
-  }
+  // @Get('profile/images')
+  // @UseGuards(Authorization)
+  // @HttpCode(HttpStatus.OK)
+  // getUserImages() {
+  //   return 'Este endpoint retorna el perfil del usuario';
+  // }
 
   @HttpCode(HttpStatus.I_AM_A_TEAPOT)
   @Get('coffee')
   getCoffee() {
-    return 'I dont know how to make coffee, I am a teapot';
+    try {
+      throw new Error();
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.I_AM_A_TEAPOT,
+          error: 'Wrong coffee information'
+        },
+        HttpStatus.I_AM_A_TEAPOT,
+      );
+    }
   }
 
-  @Get('message')
-  getMessage(@Res() response: Response) {
-    response.status(200).send('Este es un mensaje');
-  }
-
-  @Get('request')
-  getRequest(@Req() request: Request) {
-    console.log(request);
-  }
 
   @Put(':id')
   @UseGuards(Authorization)
   @HttpCode(HttpStatus.OK)
-  updateUser(@Param('id', ParseUUIDPipe) id:string, @Body()user: UsersDto ) {
+  updateUser(@Param('id', ParseUUIDPipe) id: string, @Body() user: UsersDto) {
+   try {
     return this.usersService.updateUser(id, user)
+   } catch (error) {
+    throw new HttpException(
+      {
+        status: HttpStatus.NOT_FOUND,
+        error: `User with id ${id} was not found`
+      },
+      HttpStatus.NOT_FOUND
+    );
+   }
   }
 
   @Delete(':id')
   @UseGuards(Authorization)
   @HttpCode(HttpStatus.OK)
   deleteUser(@Param('id', ParseUUIDPipe) id: string) {
-    return this.usersService.deleteUser(id)
+    try {
+      return this.usersService.deleteUser(id);
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          error: `User with id ${id} was not found`
+        },
+        HttpStatus.NOT_FOUND,
+      );
+    }
   }
 
   @Get(':id')
   @UseGuards(Authorization)
   @HttpCode(HttpStatus.OK)
   getUserById(@Param('id', ParseUUIDPipe) id: string) {
-    return this.usersService.getUserById((id));
+    try {
+      return this.usersService.getUserById(id);
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          error: `User with id ${id} was not found`,
+        },
+        HttpStatus.NOT_FOUND,
+      );
+    }
   }
 }
